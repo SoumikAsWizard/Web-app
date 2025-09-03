@@ -54,6 +54,6 @@ terraform apply -auto-approve
 - **CD**: pushes image to GHCR and publishes Helm chart artifact.
 
 ## Customize
-- Replace `ghcr.io/your-org/securecloudshop` with your GHCR path.
+- Replace `ghcr.io/your-org/securecloudshop` with your image path.
 - Add tests (pytest), then enable fail-on-severity for Trivy.
 - Enable Ingress in Helm and configure domain if using an ingress controller.
