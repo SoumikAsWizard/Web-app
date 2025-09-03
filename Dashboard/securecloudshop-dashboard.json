@@ -1,0 +1,77 @@
+{
+  "title": "SecureCloudShop Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "query": "prometheus",
+        "refresh": 1
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Requests per Second",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "rate(securecloudshop_requests_total[1m])",
+          "legendFormat": "RPS"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Cumulative Requests",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "securecloudshop_requests_total",
+          "legendFormat": "Total Requests"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Pod CPU Usage (millicores)",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "rate(container_cpu_usage_seconds_total{pod=~\"scs-securecloudshop.*\"}[1m]) * 1000",
+          "legendFormat": "{{pod}}"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Pod Memory Usage (MB)",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "container_memory_usage_bytes{pod=~\"scs-securecloudshop.*\"} / 1024^2",
+          "legendFormat": "{{pod}}"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Pod Restarts",
+      "datasource": "$datasource",
+      "targets": [
+        {
+          "expr": "kube_pod_container_status_restarts_total{pod=~\"scs-securecloudshop.*\"}",
+          "legendFormat": "{{pod}}"
+        }
+      ]
+    }
+  ]
+}

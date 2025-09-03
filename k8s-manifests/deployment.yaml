@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: securecloudshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: securecloudshop
+  template:
+    metadata:
+      labels:
+        app: securecloudshop
+    spec:
+      containers:
+        - name: web
+          image: soumikaswizard/shop-web:latest
+          ports:
+            - containerPort: 5000

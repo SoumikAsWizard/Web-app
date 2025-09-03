@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: soumikaswizard/shop-web
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 80
+  metricsPort: 9111
+
+resources: {}
+
+prometheus:
+  enabled: true
